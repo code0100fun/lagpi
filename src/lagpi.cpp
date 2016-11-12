@@ -16,6 +16,8 @@ Chase McCarthy
 #include <EGL/eglext.h>
 #include <GLES2/gl2.h>
 #include <bcm_host.h>
+#include "texture-atlas.h"
+#include "texture-font.h"
 #include "./LoadShaders.h"
 
 // WiringPI pins (use `$ gpio readall` to find the pin)
@@ -242,10 +244,15 @@ void draw() {
   }
 }
 
+int initFonts() {
+
+}
+
 int main(void) {
 
   initDetector();
   initGraphics();
+  initText();
 
   while (1) {
     draw();
