@@ -7,6 +7,7 @@ include_directories(
   /opt/vc/include
   /opt/vc/include/interface/vcos/pthreads
   /opt/vc/include/interface/vmcs_host/linux
+  /usr/local/include/freetype2
 )
 
 link_directories(
@@ -18,7 +19,7 @@ set(RPi_LIBS
   libvcos.so
   wiringPi
   rt
-  LoadShaders
+  freetype
 )
 
 set(GL_LIBS
@@ -26,10 +27,8 @@ set(GL_LIBS
   EGL
 )
 
-add_executable(lagpi src/lagpi.cpp)
-
-add_library(LoadShaders src/LoadShaders.cpp)
-
+file(GLOB_RECURSE SRC src/*.c src/*.cpp)
+add_executable(lagpi ${SRC})
 target_link_libraries(lagpi
   ${RPi_LIBS}
   ${GL_LIBS}
@@ -39,5 +38,6 @@ file(
   COPY
   src/simplefragshader.glsl
   src/simplevertshader.glsl
+  src/fonts
   DESTINATION ${CMAKE_BINARY_DIR}
 )

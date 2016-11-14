@@ -16,9 +16,10 @@ Chase McCarthy
 #include <EGL/eglext.h>
 #include <GLES2/gl2.h>
 #include <bcm_host.h>
-#include "texture-atlas.h"
-#include "texture-font.h"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include "./LoadShaders.h"
+#include "./text.h"
 
 // WiringPI pins (use `$ gpio readall` to find the pin)
 #define BUTTON_PIN      7
@@ -38,6 +39,7 @@ EGLDisplay GDisplay;
 EGLSurface GSurface;
 EGLContext GContext;
 EGL_DISPMANX_WINDOW_T nativewindow;
+font_t* font;
 
 volatile GLuint shaderProgramID;
 
@@ -246,6 +248,13 @@ void draw() {
 
 int initFonts() {
 
+}
+
+int initText() {
+  int dpi = 170;
+  font = load_font("./fonts/ObelixPro.ttf", 8, dpi);
+
+  return 0;
 }
 
 int main(void) {
